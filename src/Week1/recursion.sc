@@ -33,12 +33,19 @@ object recursion {
    */
   def balance(chars: List[Char]): Boolean = {
     def balanced(chars: List[Char], open: Int): Boolean = {
-      if (chars.isEmpty) return open == 0
-      else if (chars.head == '(') return balanced(chars.tail, open + 1)
-      else if (chars.head == ')' && open != 0) return balanced(chars.tail, open - 1)
-      else return balanced(chars.tail, open)
+      if (chars.isEmpty)
+        return open == 0
+      else if (chars.head == '(' && open != -1)
+        return balanced(chars.tail, open + 1)
+      else if (chars.head == ')')
+        return balanced(chars.tail, open - 1)
+      else
+        return balanced(chars.tail, open)
     }
-    balanced(chars, 0)
+    if (chars.isEmpty)
+      return false
+    else
+      balanced(chars, 0)
   }                                               //> balance: (chars: List[Char])Boolean
 
   println("Parentheses Balancing")                //> Parentheses Balancing
